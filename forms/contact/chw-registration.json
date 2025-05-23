@@ -1,0 +1,68 @@
+{
+  "_id": "form:register_contact",
+  "type": "form",
+  "title": "Register Contact",
+  "context": { "person": false, "place": false },
+  "sections": [
+    {
+      "name": "type",
+      "label": "Contact Type",
+      "fields": [
+        {
+          "name": "type",
+          "type": "select1",
+          "label": "Type",
+          "required": true,
+          "options": [
+            { "name": "county", "label": "County" },
+            { "name": "subcounty", "label": "Subcounty" },
+            { "name": "community_unit", "label": "Community Unit" },
+            { "name": "cha", "label": "CHA (Supervisor)" },
+            { "name": "chw", "label": "CHW" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "details",
+      "label": "Details",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "label": "Name",
+          "required": true
+        },
+        {
+          "name": "parent",
+          "type": "contact",
+          "label": "Parent (Select from higher level)",
+          "required": false,
+          "relevant": "!contact.type || contact.type !== 'county'",
+          "validations": {
+            "custom": "contact.type === 'subcounty' ? 'county' : contact.type === 'community_unit' ? 'subcounty' : 'community_unit'"
+          }
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "label": "Phone (CHA/CHW only)",
+          "required": "contact.type === 'cha' || contact.type === 'chw'",
+          "validations": {
+            "regex": "^\\+?[0-9]{10,15}$",
+            "message": "Invalid phone number"
+          },
+          "relevant": "contact.type === 'cha' || contact.type === 'chw'"
+        },
+        {
+          "name": "uuid",
+          "type": "string",
+          "label": "UUID",
+          "required": true,
+          "default": "uuid()",
+          "readonly": true
+        }
+      ]
+    }
+  ]
+}

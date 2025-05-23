@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/2002/xforms">
+  <h:head>
+    <h:title>CHT Hierarchy Registration</h:title>
+    <model>
+      <instance>
+        <data id="hierarchy_registration">
+          <type>county</type>
+          <name/>
+          <uuid/>
+          <parent_uuid/> <!-- Only for subcounty, community_unit, CHA, CHW -->
+          <phone/> <!-- Only for CHA/CHW -->
+          <meta>
+            <instanceID/>
+          </meta>
+        </data>
+      </instance>
+      <bind nodeset="/data/type" type="string" required="true()"/>
+      <bind nodeset="/data/name" type="string" required="true()"/>
+      <bind nodeset="/data/uuid" type="string" calculate="uuid()" readonly="true()"/>
+      <bind nodeset="/data/parent_uuid" type="string" required="false()" relevant="selected(/data/type, 'county')=false()"/>
+      <bind nodeset="/data/phone" type="string" required="false()" relevant="selected(/data/type, 'CHA') or selected(/data/type, 'CHW')" 
+            constraint="matches(., '^\+?[0-9]{10,15}$')" jr:constraintMsg="Invalid phone number"/>
+    </model>
+  </h:head>
+  <h:body>
+    <select1 ref="/data/type">
+      <label>Contact Type</label>
+      <item>
+        <label>County</label>
+        <value>county</value>
+      </item>
+      <item>
+        <label>Subcounty</label>
+        <value>subcounty</value>
+      </item>
+      <item>
+        <label>Community Unit</label>
+        <value>community_unit</value>
+      </item>
+      <item>
+        <label>CHA (Supervisor)</label>
+        <value>CHA</value>
+      </item>
+      <item>
+        <label>CHW</label>
+        <value>CHW</value>
+      </item>
+    </select1>
+    <input ref="/data/name">
+      <label>Name</label>
+    </input>
+    <input ref="/data/parent_uuid" relevant="selected(/data/type, 'county')=false()">
+      <label>Parent UUID (from higher level)</label>
+    </input>
+    <input ref="/data/phone" relevant="selected(/data/type, 'CHA') or selected(/data/type, 'CHW')">
+      <label>Phone Number (for CHA/CHW)</label>
+    </input>
+  </h:body>
+</h:html>

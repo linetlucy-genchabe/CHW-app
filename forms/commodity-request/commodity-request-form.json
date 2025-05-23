@@ -1,0 +1,99 @@
+{
+  "form": {
+    "_id": "form:commodity-request",
+    "type": "form",
+    "title": "Commodity Request",
+    "icon": "icon-healthcare",
+    "context": {
+      "person": false,
+      "place": false
+    },
+    "sections": [
+      {
+        "name": "chw_info",
+        "label": "CHW Info",
+        "fields": [
+          {
+            "name": "chw_name",
+            "type": "string",
+            "label": "CHW Name",
+            "required": true
+          },
+          {
+            "name": "cha_name",
+            "type": "string",
+            "label": "CHA Supervisor",
+            "required": true
+          }
+        ]
+      },
+      {
+        "name": "commodity_details",
+        "label": "Commodity Details",
+        "fields": [
+          {
+            "name": "commodity_type",
+            "type": "select1",
+            "label": "Select commodity type",
+            "required": true,
+            "options": [
+              {
+                "name": "MRDTs",
+                "label": "MRDTs"
+              },
+              {
+                "name": "AL6s",
+                "label": "AL6s"
+              },
+              {
+                "name": "AL12s",
+                "label": "AL12s"
+              },
+              {
+                "name": "AL18s",
+                "label": "AL18s"
+              },
+              {
+                "name": "AL24s",
+                "label": "AL24s"
+              },
+              {
+                "name": "family_planning",
+                "label": "Family Planning Items"
+              },
+              {
+                "name": "zinc_tablets",
+                "label": "Zinc Tablets"
+              }
+            ]
+          },
+          {
+            "name": "quantity",
+            "type": "number",
+            "label": "Enter quantity requested",
+            "required": true,
+            "validation": {
+              "min": 1,
+              "max": 99,
+              "message": "Must be between 1 and 99"
+            }
+          }
+        ]
+      }
+    ],
+    "calculated_fields": {
+      "submission_id": {
+        "calculation": "concat(chw_name, '-', commodity_type, '-', today())"
+      },
+      "request_date": {
+        "calculation": "today()"
+      }
+    },
+    "meta": {
+      "instanceID": {
+        "type": "string",
+        "readonly": true
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/2002/xforms" xmlns:jr="http://openrosa.org/javarosa">
+  <h:head>
+    <h:title>CHA Approval Form</h:title>
+    <model>
+      <!-- Main instance -->
+      <instance>
+        <data id="cha_approval">
+          <request_id/>
+          <approval_status>pending</approval_status>
+          <comments/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </data>
+      </instance>
+
+      <!-- Bindings -->
+      <bind nodeset="/data/request_id" type="string" required="true()"/>
+      <bind nodeset="/data/approval_status" type="string" required="true()"/>
+      <bind nodeset="/data/comments" type="string"/>
+      <bind nodeset="/data/meta/instanceID" type="string" jr:preload="uid" readonly="true()"/>
+
+      <!-- Approval options instance -->
+      <instance id="approval_options">
+        <root>
+          <item>
+            <name>approved</name>
+            <label>Approve</label>
+          </item>
+          <item>
+            <name>rejected</name>
+            <label>Reject</label>
+          </item>
+        </root>
+      </instance>
+    </model>
+  </h:head>
+
+  <h:body>
+    <group ref="/data">
+      <label>Commodity Request Approval</label>
+      
+      <!-- Request ID -->
+      <input ref="/data/request_id">
+        <label>Request ID</label>
+      </input>
+
+      <!-- Approval Status Dropdown -->
+      <select1 ref="/data/approval_status">
+        <label>Approval Decision</label>
+        <itemset nodeset="instance('approval_options')/root/item">
+          <value ref="name"/>
+          <label ref="label"/>
+        </itemset>
+      </select1>
+
+      <!-- Comments -->
+      <input ref="/data/comments">
+        <label>Comments (Optional)</label>
+      </input>
+    </group>
+  </h:body>
+</h:html>

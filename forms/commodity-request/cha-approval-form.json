@@ -1,0 +1,35 @@
+{
+  "_id": "form:cha_approval",
+  "type": "form",
+  "title": "Commodity Approval",
+  "icon": "icon-check",
+  "context": {
+    "person": false,
+    "place": false
+  },
+  "sections": [{
+    "fields": [
+      {
+        "name": "request_id",
+        "type": "string",
+        "label": "Request ID",
+        "required": true
+      },
+      {
+        "name": "approval_status",
+        "type": "select1",
+        "label": "Status",
+        "required": true,
+        "options": [
+          {"name": "approved", "label": "Approve"},
+          {"name": "rejected", "label": "Reject"}
+        ]
+      },
+      {
+        "name": "comments",
+        "type": "text",
+        "label": "Comments"
+      }
+    ]
+  }]
+}
