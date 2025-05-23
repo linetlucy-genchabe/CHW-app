@@ -1,0 +1,65 @@
+{
+  "app_settings": {
+    "contact_types": [
+      {
+        "id": "county",
+        "name": "County",
+        "place": true,
+        "icon": "icon-location"
+      },
+      {
+        "id": "subcounty",
+        "name": "Subcounty",
+        "place": true,
+        "icon": "icon-location",
+        "parent": "county"
+      },
+      {
+        "id": "community_unit",
+        "name": "Community Unit",
+        "place": true,
+        "icon": "icon-community",
+        "parent": "subcounty"
+      },
+      {
+        "id": "cha",
+        "name": "CHA (Supervisor)",
+        "person": true,
+        "icon": "icon-supervisor",
+        "parent": "community_unit"
+      },
+      {
+        "id": "chw",
+        "name": "CHW",
+        "person": true,
+        "icon": "icon-user",
+        "parent": "community_unit"
+      }
+    ],
+    "hierarchy": ["county", "subcounty", "community_unit", "cha", "chw"],
+ 
+    "tasks": {
+      "items": [
+        {
+          "form": "commodity-request",
+          "icon": "icon-medicine",
+          "title": "Request Commodities",
+          "applies_to": "contacts",
+          "applies_to_type": "chw"
+        },
+        {
+          "form": "cha_approval",
+          "icon": "icon-check",
+          "title": "Approve Requests",
+          "applies_to": "contacts",
+          "applies_to_type": "cha",
+          "applies_if": "contact.parent.contact_type === 'community_unit'"
+        }
+      ]
+    },
+    "permissions": {
+      "chw": ["can_submit_requests"],
+      "cha": ["can_approve_requests"]
+    }
+  }
+}
