@@ -101,3 +101,10 @@ CHA Approval
 | Invalid hierarchy   | Verify UUIDs and parent-child links in contact form      |
 | Sync delays         | Run `./cht-docker-compose.sh restart` or reset the browser session    |
 
+###  8. UI
+
+<p align="center">
+  <img src="images/UI view 1.png" alt="Image 1" width="300"/>
+  <br/>
+  <img src="images/UI view 2.png" alt="Image 2" width="300"/>
+</p>
